@@ -14,6 +14,10 @@
 #include <nuttx/board.h>
 #include <nuttx/fs/fs.h>
 
+#ifdef CONFIG_S6_MIPI_DSI
+#  include <nuttx/video/fb.h>
+#endif
+
 void s6_board_initialize(void)
 {
   /* DDR, clocks, pin mux and UART are initialized by BL31/U-Boot. */
@@ -37,6 +41,14 @@ void board_late_initialize(void)
     if (ret < 0)
       {
         syslog(LOG_ERR, "ERROR: Failed to mount procfs at /proc: %d\n", ret);
+      }
+  #endif
+
+  #ifdef CONFIG_S6_MIPI_DSI
+    ret = fb_register(0, 0);
+    if (ret < 0)
+      {
+        syslog(LOG_ERR, "ERROR: fb_register() failed: %d\n", ret);
       }
   #endif
 }
