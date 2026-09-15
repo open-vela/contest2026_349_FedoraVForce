@@ -1,4 +1,10 @@
-# Contest 2026 team 000 board placeholder
-if(CONFIG_ARCH_BOARD_CONTEST2026_000_BOARD)
-  add_subdirectory(src)
-endif()
+# ##############################################################################
+# vendor/openvela/boards/contest2026_349_board/CMakeLists.txt
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+# ##############################################################################
+
+set_property(GLOBAL PROPERTY LD_SCRIPT "${NUTTX_BOARD_DIR}/scripts/dramboot.ld")
+
+add_subdirectory(src)
