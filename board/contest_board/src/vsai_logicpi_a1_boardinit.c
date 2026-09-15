@@ -5,18 +5,29 @@
  *
  ****************************************************************************/
 
+/****************************************************************************
+ * Included Files
+ ****************************************************************************/
+
 #include <nuttx/config.h>
 #include <stdint.h>
-
-#include <syslog.h>
-
-#include <nuttx/arch.h>
 #include <nuttx/board.h>
-#include <nuttx/fs/fs.h>
+
+#if defined(CONFIG_FS_PROCFS) || defined(CONFIG_S6_MIPI_DSI)
+#  include <syslog.h>
+#endif
+
+#ifdef CONFIG_FS_PROCFS
+#  include <nuttx/fs/fs.h>
+#endif
 
 #ifdef CONFIG_S6_MIPI_DSI
 #  include <nuttx/video/fb.h>
 #endif
+
+/****************************************************************************
+ * Public Functions
+ ****************************************************************************/
 
 void s6_board_initialize(void)
 {
@@ -34,22 +45,24 @@ int board_app_initialize(uintptr_t arg)
 #ifdef CONFIG_BOARD_LATE_INITIALIZE
 void board_late_initialize(void)
 {
+#if defined(CONFIG_FS_PROCFS) || defined(CONFIG_S6_MIPI_DSI)
   int ret;
-
-  #ifdef CONFIG_FS_PROCFS
-    ret = nx_mount(NULL, "/proc", "procfs", 0, NULL);
-    if (ret < 0)
-      {
-        syslog(LOG_ERR, "ERROR: Failed to mount procfs at /proc: %d\n", ret);
-      }
-  #endif
-
-  #ifdef CONFIG_S6_MIPI_DSI
-    ret = fb_register(0, 0);
-    if (ret < 0)
-      {
-        syslog(LOG_ERR, "ERROR: fb_register() failed: %d\n", ret);
-      }
-  #endif
-}
 #endif
+
+#ifdef CONFIG_FS_PROCFS
+  ret = nx_mount(NULL, "/proc", "procfs", 0, NULL);
+  if (ret < 0)
+    {
+      syslog(LOG_ERR, "ERROR: Failed to mount procfs at /proc: %d\n", ret);
+    }
+#endif
+
+#ifdef CONFIG_S6_MIPI_DSI
+  ret = fb_register(0, 0);
+  if (ret < 0)
+    {
+      syslog(LOG_ERR, "ERROR: fb_register() failed: %d\n", ret);
+    }
+#endif
+}
+#endif /* CONFIG_BOARD_LATE_INITIALIZE */
