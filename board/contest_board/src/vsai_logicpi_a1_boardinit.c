@@ -82,6 +82,14 @@ void board_late_initialize(void)
       syslog(LOG_ERR, "ERROR: i2c_register(0) failed: %d\n", ret);
     }
 #endif
+
+#ifdef CONFIG_VSAI_LOGICPI_A1_TOUCH
+  ret = vsai_logicpi_a1_touch_register("/dev/input0", i2c);
+  if (ret < 0)
+    {
+      syslog(LOG_ERR, "ERROR: touch register failed: %d\n", ret);
+    }
+#endif
 #endif
 
   UNUSED(ret);

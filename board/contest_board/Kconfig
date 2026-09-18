@@ -3,3 +3,14 @@
 #
 
 comment "VSAI LogicPi A1 Configuration"
+
+config VSAI_LOGICPI_A1_TOUCH
+	bool "GT911 touch panel"
+	default n
+	select BOARD_LATE_INITIALIZE
+	select INPUT
+	select INPUT_GT9XX
+	select S6_GPIO
+	select S6_I2C
+	---help---
+		Enable the GT911 touch panel connected to I2C0.

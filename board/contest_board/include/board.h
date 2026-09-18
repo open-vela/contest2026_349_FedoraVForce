@@ -14,6 +14,10 @@
 
 #include <nuttx/config.h>
 
+#ifdef CONFIG_VSAI_LOGICPI_A1_TOUCH
+#  include <nuttx/i2c/i2c_master.h>
+#endif
+
 /****************************************************************************
  * Public Function Prototypes
  ****************************************************************************/
@@ -21,6 +25,11 @@
 #ifndef __ASSEMBLY__
 
 void s6_board_initialize(void);
+
+#ifdef CONFIG_VSAI_LOGICPI_A1_TOUCH
+int vsai_logicpi_a1_touch_register(FAR const char *devpath,
+                                   FAR struct i2c_master_s *i2c);
+#endif
 
 #endif /* __ASSEMBLY__ */
 

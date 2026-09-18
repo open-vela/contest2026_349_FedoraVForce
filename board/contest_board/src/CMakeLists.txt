@@ -5,4 +5,10 @@
 #
 # ##############################################################################
 
-target_sources(board PRIVATE vsai_logicpi_a1_boardinit.c)
+set(SRCS vsai_logicpi_a1_boardinit.c)
+
+if(CONFIG_VSAI_LOGICPI_A1_TOUCH)
+  list(APPEND SRCS vsai_logicpi_a1_touch.c)
+endif()
+
+target_sources(board PRIVATE ${SRCS})
