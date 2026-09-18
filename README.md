@@ -88,6 +88,12 @@ cd ..
 
 > 具体的 board config 路径、目标产物、模拟器/真机部署方式请以你所在赛道的教程导航为准。本仓 `app/` `quickapp/` `board/` 三个示例骨架对应的 Kconfig 选项可通过 `menuconfig` 启用。
 
+> **本队适配说明（新硬件适配赛道，VSAI LogicPi A1）**：板级代码在
+> `board/contest_board/`；芯片级支持（`arch/arm64/src/s6`）在 nuttx 分仓
+> <https://github.com/U2FsdGVkX1/vela-nuttx> 的 `dev-ai-contest-2026` 分支，
+> **本项目必须配合该分仓编译**（编译前把工作区 `nuttx/` 切到该分支），
+> 详见 [board/contest_board/README.md](board/contest_board/README.md)。
+
 ---
 
 ## 五、第四步：提交作品
