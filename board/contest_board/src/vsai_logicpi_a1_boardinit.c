@@ -10,12 +10,13 @@
  ****************************************************************************/
 
 #include <nuttx/config.h>
+
 #include <stdint.h>
 #include <nuttx/board.h>
 
-#if defined(CONFIG_FS_PROCFS) || defined(CONFIG_S6_MIPI_DSI)
-#  include <syslog.h>
-#endif
+#include <syslog.h>
+
+#include <arch/board/board.h>
 
 #ifdef CONFIG_FS_PROCFS
 #  include <nuttx/fs/fs.h>
@@ -34,6 +35,10 @@ void s6_board_initialize(void)
   /* DDR, clocks, pin mux and UART are initialized by BL31/U-Boot. */
 }
 
+/* This tree's NSH enables CONFIG_BOARDCTL (mkrd), and boards/boardctl.c
+ * references board_app_initialize() unconditionally.
+ */
+
 #ifdef CONFIG_BOARDCTL
 int board_app_initialize(uintptr_t arg)
 {
@@ -45,9 +50,7 @@ int board_app_initialize(uintptr_t arg)
 #ifdef CONFIG_BOARD_LATE_INITIALIZE
 void board_late_initialize(void)
 {
-#if defined(CONFIG_FS_PROCFS) || defined(CONFIG_S6_MIPI_DSI)
-  int ret;
-#endif
+  int ret = OK;
 
 #ifdef CONFIG_FS_PROCFS
   ret = nx_mount(NULL, "/proc", "procfs", 0, NULL);
@@ -64,5 +67,7 @@ void board_late_initialize(void)
       syslog(LOG_ERR, "ERROR: fb_register() failed: %d\n", ret);
     }
 #endif
+
+  UNUSED(ret);
 }
-#endif /* CONFIG_BOARD_LATE_INITIALIZE */
+#endif
