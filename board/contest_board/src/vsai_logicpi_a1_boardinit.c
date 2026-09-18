@@ -26,6 +26,10 @@
 #  include <nuttx/video/fb.h>
 #endif
 
+#ifdef CONFIG_S6_I2C
+#  include "s6_i2c.h"
+#endif
+
 /****************************************************************************
  * Public Functions
  ****************************************************************************/
@@ -66,6 +70,18 @@ void board_late_initialize(void)
     {
       syslog(LOG_ERR, "ERROR: fb_register() failed: %d\n", ret);
     }
+#endif
+
+#if defined(CONFIG_S6_I2C)
+  struct i2c_master_s *i2c = s6_i2cbus_initialize();
+
+#ifdef CONFIG_I2C_DRIVER
+  ret = i2c_register(i2c, 0);
+  if (ret < 0)
+    {
+      syslog(LOG_ERR, "ERROR: i2c_register(0) failed: %d\n", ret);
+    }
+#endif
 #endif
 
   UNUSED(ret);
