@@ -1,0 +1,3 @@
+/* Auto-start the LVGL launcher on boot */
+
+launcher &

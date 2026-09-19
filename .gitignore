@@ -10,3 +10,5 @@ out/
 Make.dep
 .depend
 *.tmp
+etctmp
+etctmp.c

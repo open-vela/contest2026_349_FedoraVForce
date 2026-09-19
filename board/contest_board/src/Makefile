@@ -13,4 +13,8 @@ ifeq ($(CONFIG_VSAI_LOGICPI_A1_TOUCH),y)
 CSRCS += vsai_logicpi_a1_touch.c
 endif
 
+ifeq ($(CONFIG_ETC_ROMFS),y)
+RCSRCS = etc/init.d/rcS
+endif
+
 include $(TOPDIR)/boards/Board.mk
