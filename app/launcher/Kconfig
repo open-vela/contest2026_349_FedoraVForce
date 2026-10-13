@@ -3,11 +3,23 @@
 # see the file kconfig-language.txt in the NuttX tools repository.
 #
 
-config LVX_USE_DEMO_CONTEST2026_349_LAUNCHER
-	bool "Contest 2026 team 349 LVGL launcher demo"
+config LVX_USE_DEMO_LAUNCHER
+	bool "LVGL launcher"
 	default n
-	depends on GRAPHICS_LVGL
+	depends on GRAPHICS_LVGL && BUILTIN
 	select LV_USE_NUTTX
 	select LV_USE_NUTTX_TOUCHSCREEN
+	select SCHED_WAITPID
 	---help---
-		Enable the contest 2026 team 349 LVGL launcher demo.
+		Tile style home screen that lists and starts LVGL builtin apps.
+
+if LVX_USE_DEMO_LAUNCHER
+
+config LVX_LAUNCHER_APPS
+	string "Apps shown in the launcher"
+	default ""
+	---help---
+		Space separated list of LVGL builtin apps, e.g. "paint bench".
+		Apps that are not built into the image are skipped.
+
+endif

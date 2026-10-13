@@ -1,11 +1,14 @@
-# launcher（LVGL 演示）
+# launcher（LVGL 桌面）
 
-队伍 349 FedoraVForce 的 LVGL 触控演示应用，映射到 openvela
-`packages/demos/contest2026_349_launcher`。
+LVGL 桌面，开机自动运行。
 
-- 锁屏页：运行时钟，任意位置上滑或点击圆形手柄解锁
-- 桌面页：时钟、heap/FPS 状态、About / Paint 两个入口
-- About 页：S6 移植信息（GICv3、MIPI DSI、GT9XX）与实时 heap/FPS
-- Paint 页：全屏手写画板，四色画笔 + Clear
+- 锁屏：上滑或点击底部按钮解锁，点 Lock 磁贴可以重新锁屏
+- 桌面：磁贴风格，顶部大磁贴轮流显示运行时间和剩余内存，点击进入系统信息
+- 应用：每个应用一个磁贴，点击启动，退出后回到桌面
 
-运行：NSH 下执行 `launcher`。
+桌面显示哪些应用由 `CONFIG_LVX_LAUNCHER_APPS` 配置，由板级 defconfig 指定
+例如 `CONFIG_LVX_LAUNCHER_APPS="paint bench"`。没有编进镜像的应用不会显示。
+
+启动应用前 launcher 会先释放 LVGL，等应用退出后再重新初始化。同一时间只能
+运行一个 LVGL 应用，所以应用要从桌面打开。新加的应用退出前需要调用
+`lv_nuttx_deinit` 和 `lv_deinit`。

@@ -1,0 +1,7 @@
+############################################################################
+# app/paint/Make.defs
+############################################################################
+
+ifneq ($(CONFIG_LVX_USE_DEMO_PAINT),)
+CONFIGURED_APPS += $(patsubst %/,%,$(dir $(lastword $(MAKEFILE_LIST))))
+endif

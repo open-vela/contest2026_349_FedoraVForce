@@ -1,5 +1,5 @@
 ############################################################################
-# Contest 2026 team 349 launcher - Makefile
+# app/launcher/Makefile
 ############################################################################
 
 include $(APPDIR)/Make.defs
@@ -7,7 +7,7 @@ include $(APPDIR)/Make.defs
 PROGNAME  = launcher
 PRIORITY  = SCHED_PRIORITY_DEFAULT
 STACKSIZE = 32768
-MODULE    = $(CONFIG_LVX_USE_DEMO_CONTEST2026_349_LAUNCHER)
+MODULE    = $(CONFIG_LVX_USE_DEMO_LAUNCHER)
 
 MAINSRC = launcher_main.c
 

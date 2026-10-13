@@ -12,13 +12,16 @@ FedoraVForce）的参赛作品：为 **VSAI LogicPi A1** 开发板适配 NuttX/o
   的 `dev-ai-contest-2026` 分支
 - 板级适配（本仓 `board/contest_board/`，经 manifest `<linkfile>` 软链到
   `vendor/openvela/boards/contest2026_349_board`）
-- LVGL 桌面应用 `app/launcher`（开机自动运行）
+- LVGL 桌面 `app/launcher`（开机自动运行），以及画板 `app/paint` 和性能测试
+  `app/bench` 两个应用，都软链到 `packages/demos/` 下
 
 目录结构：
 
 ```text
 board/contest_board/   # 板级适配（映射到 vendor/openvela/boards/contest2026_349_board）
-app/launcher/          # LVGL 桌面应用
+app/launcher/          # LVGL 桌面
+app/paint/             # 画板
+app/bench/             # 性能与显示测试
 logs/                  # AI Coding 日志
 ```
 

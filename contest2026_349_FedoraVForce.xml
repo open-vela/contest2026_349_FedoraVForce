@@ -10,6 +10,8 @@
 
   <project path="contest2026_349_FedoraVForce" name="contest2026_349_FedoraVForce">
     <linkfile src="app/launcher" dest="packages/demos/contest2026_349_launcher"/>
+    <linkfile src="app/paint" dest="packages/demos/contest2026_349_paint"/>
+    <linkfile src="app/bench" dest="packages/demos/contest2026_349_bench"/>
     <linkfile src="board/contest_board" dest="vendor/openvela/boards/contest2026_349_board"/>
   </project>
 </manifest>

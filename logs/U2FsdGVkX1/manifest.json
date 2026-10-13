@@ -2,8 +2,8 @@
   "schema_version": "1.0",
   "team_id": "contest2026_349_FedoraVForce",
   "github_login": "U2FsdGVkX1",
-  "generator": "opencode-collector@1.4.0",
-  "updated_at": "2026-09-19T17:33:00.673Z",
+  "generator": "claude-code-collector@1.3.0",
+  "updated_at": "2026-10-13T06:04:40.415Z",
   "sessions": [
     {
       "session_id": "ses_f5ae1d4a4ffez07Uk94DDC2Pr3",
@@ -264,6 +264,18 @@
       "health": "ok",
       "title": "小米活动目录结构检查",
       "model": "zhipuai-coding-plan/glm-5.3"
+    },
+    {
+      "session_id": "52c51b9e-a8c1-4035-8707-cf4cbace9cfd",
+      "tool": "claude-code",
+      "started_at": "2026-10-13T05:10:33.904Z",
+      "last_event_at": "2026-10-13T06:04:40.412Z",
+      "event_count": 296,
+      "raw_event_count": 841,
+      "file_path": "logs/U2FsdGVkX1/2026-10-13/claude-code__52c51b9e-a8c1-4035-8707-cf4cbace9cfd.jsonl",
+      "collection_mode": "cli",
+      "health": "ok",
+      "model": "claude-opus-5-5"
     }
   ]
 }
