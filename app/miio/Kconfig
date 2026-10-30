@@ -1,0 +1,12 @@
+#
+# For a description of the syntax of this configuration file,
+# see the file kconfig-language.txt in the NuttX tools repository.
+#
+
+config LVX_MIIO
+	bool
+	select CRYPTO_MBEDTLS
+	---help---
+		miio protocol: encrypted JSON-RPC with a Mi Home device on the
+		LAN.  Knows no device, see app/mihome.  Selected by the apps
+		that use it.
