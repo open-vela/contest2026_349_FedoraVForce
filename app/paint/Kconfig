@@ -15,3 +15,13 @@ config LVX_USE_DEMO_PAINT
 		Full screen finger paint with on-device handwritten digit
 		recognition (784-128-10 MLP trained on MNIST), on TFLite Micro
 		with TFLITEMICRO, on plain C inference otherwise.
+
+config LVX_PAINT_LINK
+	bool "Switch a Mi Home device with 1 and 0"
+	default n
+	depends on LVX_USE_DEMO_PAINT && NET_UDP
+	select LVX_MIHOME
+	---help---
+		A button in the tool bar links recognition to the device of
+		app/mihome: a recognized 1 switches it on, a 0 off.  Without
+		/tmp/miio.conf that is the mock, and the result card says so.

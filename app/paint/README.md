@@ -12,3 +12,11 @@
 识别代码在公共库 `app/digit`（bench 也用它比较两种推理实现），见那里的
 README。打开 `CONFIG_TFLITEMICRO` 时识别跑在 TFLite Micro 上，串口行末尾会
 写 `on TFLite Micro`；TFLM 初始化失败或没打开时用手写的 C 推理。
+
+## 联动（`CONFIG_LVX_PAINT_LINK`）
+
+工具栏最后的电源按钮打开联动（变蓝）。打开识别和联动后，识别出 `1` 开、
+`0` 关 `app/mihome` 的设备（空调伴侣，没有 `/tmp/miio.conf` 时是 mock），
+结果卡下面多一行：「发送中」→「已发送：开 / 关」或「发送失败」。用 mock
+时这一行右边一直显示「演示模式 · 模拟设备」。发送在画板自己的线程里，
+不卡画布。开了联动时工具栏按钮从 88px 缩到 80px。

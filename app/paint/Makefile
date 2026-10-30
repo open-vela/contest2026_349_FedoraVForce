@@ -13,5 +13,7 @@ MAINSRC = paint_main.c
 
 CFLAGS += ${INCDIR_PREFIX}$(APPDIR)/packages/demos/contest2026_349_ui
 CFLAGS += ${INCDIR_PREFIX}$(APPDIR)/packages/demos/contest2026_349_digit
+CFLAGS += ${INCDIR_PREFIX}$(APPDIR)/packages/demos/contest2026_349_miio
+CFLAGS += ${INCDIR_PREFIX}$(APPDIR)/packages/demos/contest2026_349_mihome
 
 include $(APPDIR)/Application.mk
