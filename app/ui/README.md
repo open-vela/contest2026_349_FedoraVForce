@@ -15,7 +15,8 @@ launcher、paint、bench、monitor 共用的外观，不是独立应用。由用
 
 ## 字库
 
-Oswald（数字、标题）和 Outfit（正文）都是 SIL OFL 1.1，许可证全文在
+Oswald（数字、标题）、Outfit（正文）和 Noto Sans SC（演示模式标签）都是
+SIL OFL 1.1，许可证全文在
 `fonts/OFL-*.txt`。字库由 `tools/gen_fonts.sh` 用 lv_font_conv 1.5.2 从
 [google/fonts](https://github.com/google/fonts) 的可变字体生成（先用
 fontTools 切出静态字重），4 bpp、不压缩，只转用得到的字符：
@@ -27,6 +28,7 @@ fontTools 切出静态字重），4 bpp、不压缩，只转用得到的字符�
 | `ui_font_oswald_64` | 500 | 数字、大小写字母、`/%:.-+` |
 | `ui_font_outfit_26` / `_34` | 400 | ASCII |
 | `ui_font_outfit_52` | 600 | ASCII |
+| `ui_font_notosc_40` | 600 | 「演示模式 · 模拟设备」和画板的「已发送：开/关」「发送中」「发送失败」用到的 18 个字符 |
 
 字重是按参考图量出来的。单个字形高度不能超过 255px，否则会触发 LVGL 的
 large 格式，300px 的 Oswald 数字是 252px。
@@ -34,7 +36,7 @@ large 格式，300px 的 Oswald 数字是 252px。
 ```bash
 npm install -g lv_font_conv@1.5.2     # 或 pnpm add -g
 pip install fonttools
-app/ui/tools/gen_fonts.sh 'Oswald[wght].ttf' 'Outfit[wght].ttf'
+app/ui/tools/gen_fonts.sh 'Oswald[wght].ttf' 'Outfit[wght].ttf' 'NotoSansSC[wght].ttf'
 ```
 
 图标用 LVGL 自带的 Montserrat 符号（`UI_ICON_24`、`UI_ICON_48`）。

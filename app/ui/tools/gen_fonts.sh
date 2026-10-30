@@ -2,14 +2,16 @@
 ############################################################################
 # app/ui/tools/gen_fonts.sh
 #
-# Regenerate the Oswald / Outfit C fonts in app/ui/fonts.
+# Regenerate the Oswald / Outfit / Noto Sans SC C fonts in app/ui/fonts.
 #
 # Needs python3 with fontTools and lv_font_conv (1.5.2, installed globally
 # with npm or pnpm).  The fonts come from
-# https://github.com/google/fonts (ofl/oswald, ofl/outfit), both are
-# variable fonts, a static instance is cut for each weight first.
+# https://github.com/google/fonts (ofl/oswald, ofl/outfit, ofl/notosanssc),
+# all are variable fonts, a static instance is cut for each weight first.
+# Noto Sans SC is optional, it only has the characters of the demo mode
+# label and of what paint sent to a Mi Home device.
 #
-#   gen_fonts.sh <Oswald[wght].ttf> <Outfit[wght].ttf>
+#   gen_fonts.sh <Oswald[wght].ttf> <Outfit[wght].ttf> [NotoSansSC[wght].ttf]
 #
 # LV_FONT_CONV overrides the converter command, default "lv_font_conv".
 ############################################################################
@@ -18,6 +20,7 @@ set -e
 
 OSWALD=$1
 OUTFIT=$2
+NOTOSC=$3
 OUT=$(cd "$(dirname "$0")/../fonts" && pwd)
 CONV=${LV_FONT_CONV:-lv_font_conv}
 TMP=$(mktemp -d "${TMPDIR:-/tmp}/gen_fonts.XXXXXX")
@@ -63,3 +66,11 @@ convert ui_font_oswald_64  oswald-medium 64  " $DIGITS$UPPER$LOWER/%:.-+"
 convert ui_font_outfit_26  outfit-regular 26 "$ASCII"
 convert ui_font_outfit_34  outfit-regular 34 "$ASCII"
 convert ui_font_outfit_52  outfit-semibold 52 "$ASCII"
+
+# UI_DEMO_TEXT in lvx_ui.h, and paint's "已发送：开" / "已发送：关" /
+# "发送中" / "发送失败"
+
+if [ -n "$NOTOSC" ]; then
+  instance "$NOTOSC" notosc-semibold 600
+  convert ui_font_notosc_40 notosc-semibold 40 " ·：中关发失已开式拟设败备演示送模"
+fi

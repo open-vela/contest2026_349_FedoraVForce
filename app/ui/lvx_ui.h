@@ -50,6 +50,13 @@
 #define UI_OUTFIT_34          (&ui_font_outfit_34)
 #define UI_OUTFIT_52          (&ui_font_outfit_52)
 
+/* Noto Sans SC, only the characters of UI_DEMO_TEXT and of paint's
+ * "已发送：开" / "已发送：关" / "发送中" / "发送失败"
+ */
+
+#define UI_NOTOSC_40          (&ui_font_notosc_40)
+#define UI_DEMO_TEXT          "演示模式 · 模拟设备"
+
 /* Montserrat symbols for icons */
 
 #define UI_ICON_24            (&lv_font_montserrat_24)
@@ -65,6 +72,7 @@ extern const lv_font_t ui_font_oswald_64;
 extern const lv_font_t ui_font_outfit_26;
 extern const lv_font_t ui_font_outfit_34;
 extern const lv_font_t ui_font_outfit_52;
+extern const lv_font_t ui_font_notosc_40;
 
 /****************************************************************************
  * Public Function Prototypes
@@ -97,6 +105,10 @@ void ui_place(lv_obj_t *obj, const lv_font_t *font, int32_t x, int32_t y);
 /* Small upper case label with wide letter spacing, e.g. "UPTIME" */
 
 lv_obj_t *ui_tag(lv_obj_t *parent, uint32_t color, const char *text);
+
+/* Yellow UI_DEMO_TEXT label, for every screen that shows a mock device */
+
+lv_obj_t *ui_demo_badge(lv_obj_t *parent);
 
 /* Square back button for the top left corner */
 
