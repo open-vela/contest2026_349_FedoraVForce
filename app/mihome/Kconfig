@@ -1,0 +1,15 @@
+#
+# For a description of the syntax of this configuration file,
+# see the file kconfig-language.txt in the NuttX tools repository.
+#
+
+config LVX_MIHOME
+	bool "Mi Home device control"
+	default n
+	depends on NET_UDP
+	select LVX_MIIO
+	---help---
+		Reads and controls a Mi Home device on the LAN for aircon and
+		paint, with a table of what to call on which model, and adds the
+		NSH command "miio".  The device IP, token and model are read
+		from /tmp/miio.conf at run time.
