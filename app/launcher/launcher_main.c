@@ -153,6 +153,11 @@ static const struct launcher_app_s g_apps[] =
     LV_SYMBOL_GPS, UI_YELLOW, UI_INK, UI_INK
   },
   {
+    "aircon", NULL, NULL, LAUNCHER_TEAM,
+    "AIRCON", "Mi Home AC over the LAN", "MIIO",
+    LV_SYMBOL_POWER, UI_INK_2, 0xffffff, UI_BLUE_DIM
+  },
+  {
     "snake", "lvdemo", "snake", LAUNCHER_OPENVELA,
     "SNAKE", "Snake game from openvela", NULL,
     LV_SYMBOL_SHUFFLE, UI_INK_2, 0xffffff, UI_YELLOW

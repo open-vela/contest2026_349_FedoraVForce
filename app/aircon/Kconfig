@@ -1,0 +1,17 @@
+#
+# For a description of the syntax of this configuration file,
+# see the file kconfig-language.txt in the NuttX tools repository.
+#
+
+config LVX_USE_DEMO_AIRCON
+	bool "LVGL air conditioner"
+	default n
+	depends on GRAPHICS_LVGL && NET_UDP
+	select LV_USE_NUTTX
+	select LV_USE_NUTTX_TOUCHSCREEN
+	select LVX_UI
+	select LVX_MIHOME
+	---help---
+		Power, mode, target temperature and load power of a Mi Home AC
+		partner on the LAN, refreshed every 2 s, and a button that
+		switches it on and off.  Needs /tmp/miio.conf, see app/mihome.
