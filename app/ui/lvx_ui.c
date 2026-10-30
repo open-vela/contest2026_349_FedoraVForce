@@ -155,6 +155,18 @@ lv_obj_t *ui_tag(lv_obj_t *parent, uint32_t color, const char *text)
   return label;
 }
 
+lv_obj_t *ui_demo_badge(lv_obj_t *parent)
+{
+  lv_obj_t *badge = ui_label(parent, UI_NOTOSC_40, UI_INK, UI_DEMO_TEXT);
+
+  lv_obj_set_style_bg_color(badge, lv_color_hex(UI_YELLOW), 0);
+  lv_obj_set_style_bg_opa(badge, LV_OPA_COVER, 0);
+  lv_obj_set_style_radius(badge, UI_RADIUS, 0);
+  lv_obj_set_style_pad_hor(badge, 28, 0);
+  lv_obj_set_style_pad_ver(badge, 12, 0);
+  return badge;
+}
+
 lv_obj_t *ui_back(lv_obj_t *parent, uint32_t color, lv_event_cb_t cb)
 {
   lv_obj_t *btn = ui_box(parent, color, UI_RADIUS);
