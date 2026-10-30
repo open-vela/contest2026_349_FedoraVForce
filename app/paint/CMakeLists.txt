@@ -5,5 +5,7 @@ if(CONFIG_LVX_USE_DEMO_PAINT)
     SRCS paint_main.c
     INCLUDE_DIRECTORIES ${NUTTX_APPS_DIR}/packages/demos/contest2026_349_ui
                         ${NUTTX_APPS_DIR}/packages/demos/contest2026_349_digit
+                        ${NUTTX_APPS_DIR}/packages/demos/contest2026_349_miio
+                        ${NUTTX_APPS_DIR}/packages/demos/contest2026_349_mihome
     STACKSIZE 32768)
 endif()

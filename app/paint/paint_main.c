@@ -3,6 +3,10 @@
  *
  * LVGL paint app with on-device handwritten digit recognition
  * VSAI LogicPi A1 (Amlogic S6): MIPI DSI 1080x1920 + GT9XX touch
+ *
+ * With LVX_PAINT_LINK a recognized 1 switches the Mi Home device of
+ * app/mihome on and a 0 off, from a thread of its own.  On the mock the
+ * result card says so.
  ****************************************************************************/
 
 /****************************************************************************
@@ -14,6 +18,7 @@
 #include <sys/param.h>
 
 #include <malloc.h>
+#include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -23,6 +28,9 @@
 
 #include "digit.h"
 #include "lvx_ui.h"
+#ifdef CONFIG_LVX_PAINT_LINK
+#  include "mihome.h"
+#endif
 
 /****************************************************************************
  * Pre-processor Definitions
@@ -32,7 +40,11 @@
 
 #define PAINT_BAR_Y           1664
 #define PAINT_BAR_H           184
-#define PAINT_BTN_SIZE        88
+#ifdef CONFIG_LVX_PAINT_LINK
+#  define PAINT_BTN_SIZE      80      /* Room for the link button */
+#else
+#  define PAINT_BTN_SIZE      88
+#endif
 
 /* Stroke points kept for recognition, closer ones are skipped */
 
@@ -42,6 +54,7 @@
 #define PAINT_RECOGNIZE_DELAY 700     /* ms after the pen lifts */
 
 #define PAINT_CARD_H          420
+#define PAINT_LINK_ROW_H      80      /* Card row for what was sent */
 #define PAINT_INPUT_SCALE     6       /* Model input shown 168x168 */
 #define PAINT_INPUT_SIZE      (DIGIT_SIZE * PAINT_INPUT_SCALE)
 #define PAINT_TOP_N           3
@@ -89,6 +102,23 @@ static lv_obj_t *g_card_conf;
 static lv_obj_t *g_card_top[PAINT_TOP_N][3];   /* digit, bar, percent */
 static lv_obj_t *g_card_input;
 static uint16_t *g_input_buf;
+
+#ifdef CONFIG_LVX_PAINT_LINK
+/* Link: the LVGL thread asks, the link thread answers */
+
+static pthread_mutex_t g_link_lock = PTHREAD_MUTEX_INITIALIZER;
+static volatile int g_link_request;     /* 1 on, -1 off, 0 none */
+static int g_link_sent;                 /* What the result is for */
+static int g_link_ret;
+static bool g_link_mock;
+static unsigned int g_link_done;        /* Counts the answers */
+static unsigned int g_link_shown;
+static bool g_link;
+
+static lv_obj_t *g_link_btn;
+static lv_obj_t *g_card_sent;
+static lv_obj_t *g_card_badge;
+#endif
 
 /****************************************************************************
  * Private Functions
@@ -209,9 +239,116 @@ static void paint_card_hidden_cb(lv_anim_t *a)
 static void paint_card_close_cb(lv_event_t *e)
 {
   UNUSED(e);
-  ui_anim(g_card, paint_translate_y_cb, 0, -(PAINT_CARD_H + UI_MARGIN),
-          UI_ENTER_TIME, 0, paint_card_hidden_cb);
+  ui_anim(g_card, paint_translate_y_cb, 0,
+          -(lv_obj_get_height(g_card) + UI_MARGIN), UI_ENTER_TIME, 0,
+          paint_card_hidden_cb);
 }
+
+#ifdef CONFIG_LVX_PAINT_LINK
+/****************************************************************************
+ * Name: link
+ ****************************************************************************/
+
+static FAR void *paint_link_thread(FAR void *arg)
+{
+  struct mihome_s h;
+  int req;
+  int ret;
+
+  UNUSED(arg);
+
+  mihome_init(&h);
+  while (g_running)
+    {
+      req = g_link_request;
+      if (req == 0)
+        {
+          usleep(50 * 1000);
+          continue;
+        }
+
+      ret = mihome_power(&h, req > 0);
+      printf("paint: sent %s%s, %d\n", req > 0 ? "on" : "off",
+             h.mock ? " [mock]" : "", ret);
+
+      pthread_mutex_lock(&g_link_lock);
+      g_link_sent = req;
+      g_link_ret = ret;
+      g_link_mock = h.mock;
+      g_link_done++;
+      if (g_link_request == req)
+        {
+          g_link_request = 0;
+        }
+
+      pthread_mutex_unlock(&g_link_lock);
+    }
+
+  mihome_close(&h);
+  return NULL;
+}
+
+/* The card row: what was sent, and the label while it is the mock */
+
+static void paint_link_show(FAR const char *text, bool mock)
+{
+  lv_label_set_text(g_card_sent, text);
+  lv_obj_update_flag(g_card_badge, LV_OBJ_FLAG_HIDDEN, !mock);
+}
+
+static void paint_link_cb(lv_timer_t *timer)
+{
+  FAR const char *text;
+  bool mock;
+
+  UNUSED(timer);
+
+  pthread_mutex_lock(&g_link_lock);
+  if (g_link_done == g_link_shown)
+    {
+      pthread_mutex_unlock(&g_link_lock);
+      return;
+    }
+
+  g_link_shown = g_link_done;
+  text = g_link_ret < 0 ? "发送失败" :
+         g_link_sent > 0 ? "已发送：开" : "已发送：关";
+  mock = g_link_mock;
+  pthread_mutex_unlock(&g_link_lock);
+
+  paint_link_show(text, mock);
+}
+
+/* 1 on, 0 off, other digits nothing */
+
+static void paint_link_send(int digit)
+{
+  if (!g_link)
+    {
+      return;
+    }
+
+  if (digit == 0 || digit == 1)
+    {
+      g_link_request = digit == 1 ? 1 : -1;
+      paint_link_show("发送中", mihome_is_mock());
+    }
+  else
+    {
+      paint_link_show("", mihome_is_mock());
+    }
+}
+
+static void paint_link_toggle_cb(lv_event_t *e)
+{
+  UNUSED(e);
+
+  g_link = !g_link;
+  lv_obj_set_style_bg_color(g_link_btn, lv_color_hex(g_link ? UI_BLUE :
+                                                     UI_INK_2), 0);
+  lv_obj_set_height(g_card, PAINT_CARD_H + (g_link ? PAINT_LINK_ROW_H : 0));
+}
+#endif
 
 /* The 28x28 input, white on black like MNIST, also as text on stdout */
 
@@ -306,10 +443,14 @@ static void paint_recognize_cb(lv_timer_t *timer)
   lv_label_set_text_fmt(g_card_conf, "%d%%",
                         (int)(prob[best] * 100 + 0.5f));
 
+#ifdef CONFIG_LVX_PAINT_LINK
+  paint_link_send(best);
+#endif
+
   if (lv_obj_has_flag(g_card, LV_OBJ_FLAG_HIDDEN))
     {
       lv_obj_remove_flag(g_card, LV_OBJ_FLAG_HIDDEN);
-      ui_enter(g_card, 0, -(PAINT_CARD_H + UI_MARGIN), 0);
+      ui_enter(g_card, 0, -(lv_obj_get_height(g_card) + UI_MARGIN), 0);
     }
 }
 
@@ -362,6 +503,21 @@ static void paint_create_card(lv_obj_t *scr)
   lv_obj_center(g_card_input);
   obj = ui_label(g_card, UI_OUTFIT_26, UI_MUTED, "model input");
   lv_obj_align(obj, LV_ALIGN_TOP_RIGHT, -44, 290);
+
+#ifdef CONFIG_LVX_PAINT_LINK
+  /* Row below, only there while the link is on */
+
+  obj = ui_box(g_card, UI_INK_2, 0);
+  lv_obj_set_pos(obj, 44, PAINT_CARD_H);
+  lv_obj_set_size(obj, UI_CONTENT_W - 88, 2);
+  g_card_sent = ui_label(g_card, UI_NOTOSC_40, 0xffffff, "");
+  lv_obj_align(g_card_sent, LV_ALIGN_TOP_LEFT, 44, PAINT_CARD_H +
+               (PAINT_LINK_ROW_H - lv_font_get_line_height(UI_NOTOSC_40)) /
+               2 - 6);
+  g_card_badge = ui_demo_badge(g_card);
+  lv_obj_add_flag(g_card_badge, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_align(g_card_badge, LV_ALIGN_TOP_RIGHT, -32, PAINT_CARD_H + 6);
+#endif
 }
 
 /****************************************************************************
@@ -502,6 +658,10 @@ static void paint_create(void)
 
   paint_icon_button(bar, LV_SYMBOL_TRASH, paint_clear_cb);
   g_eye = paint_icon_button(bar, LV_SYMBOL_EYE_OPEN, paint_eye_cb);
+#ifdef CONFIG_LVX_PAINT_LINK
+  g_link_btn = paint_icon_button(bar, LV_SYMBOL_POWER, paint_link_toggle_cb);
+  lv_timer_create(paint_link_cb, 100, NULL);
+#endif
 
   paint_create_card(scr);
 
@@ -531,6 +691,12 @@ static int paint_start(lv_nuttx_result_t *result)
 
   g_npoints = 0;
   g_recognize = false;
+#ifdef CONFIG_LVX_PAINT_LINK
+  g_link = false;
+  g_link_request = 0;
+  g_link_done = 0;
+  g_link_shown = 0;
+#endif
   g_recognize_timer = NULL;
   paint_create();
   return 0;
@@ -544,6 +710,11 @@ int main(int argc, FAR char *argv[])
 {
   lv_nuttx_result_t result;
   uint32_t idle;
+#ifdef CONFIG_LVX_PAINT_LINK
+  pthread_attr_t attr;
+  pthread_t link;
+  bool linked;
+#endif
 
   UNUSED(argc);
   UNUSED(argv);
@@ -568,11 +739,28 @@ int main(int argc, FAR char *argv[])
     }
 
   g_running = paint_start(&result) == 0;
+
+#ifdef CONFIG_LVX_PAINT_LINK
+  pthread_attr_init(&attr);
+  pthread_attr_setstacksize(&attr, 8192);
+  linked = g_running &&
+           pthread_create(&link, &attr, paint_link_thread, NULL) == 0;
+#endif
+
   while (g_running)
     {
       idle = lv_timer_handler();
       usleep(MAX(idle, 1) * 1000);
     }
+
+#ifdef CONFIG_LVX_PAINT_LINK
+  /* Up to two 2 s timeouts while the device does not answer */
+
+  if (linked)
+    {
+      pthread_join(link, NULL);
+    }
+#endif
 
   lv_nuttx_deinit(&result);
   lv_deinit();
