@@ -19,6 +19,7 @@
     <linkfile src="app/lvdemo" dest="packages/demos/contest2026_349_lvdemo"/>
     <linkfile src="app/miio" dest="packages/demos/contest2026_349_miio"/>
     <linkfile src="app/mihome" dest="packages/demos/contest2026_349_mihome"/>
+    <linkfile src="app/aircon" dest="packages/demos/contest2026_349_aircon"/>
     <linkfile src="board/contest_board" dest="vendor/openvela/boards/contest2026_349_board"/>
   </project>
 </manifest>
