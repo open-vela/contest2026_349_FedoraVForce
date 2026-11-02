@@ -1,0 +1,424 @@
+Bl2_early_platform_setup: indicates bl2ex flow!
+
+ops_bining:75de0400
+saradc: normal mode
+saradc trim is ready
+Board ID = 6
+set board2 cpu vol
+set ee_vol to group2
+saradc: normal mode
+saradc trim is ready
+saradc: normal mode
+saradc trim is ready
+saradc get voltage deviation too high
+OTP_LIC00 : <redacted>
+OTP_LIC10 : <redacted>
+OTP_LIC20 : <redacted>
+OTP_LIC30 : <redacted>
+
+TE: 255732
+
+BL2 1.1.1 Built : 11:14:20, Jun 17 2025. s6 projects/openlinux/yocto-4.0-s6 gb6239d66 - bl.autobuild@walle02-sh
+
+fix_pll is 2000 MHz. Locked
+sys1_pll is 1800 MHz. Locked
+sys0_pll is 2400 MHz. Locked
+gp0_pll is 1152 MHz. Locked
+hifi_pll is 490 MHz. Locked
+boot_device:00000001
+boot_seq:00000001
+boot_bakups:00000003
+s_setup from rom:00010081
+dma mode
+ssp->boot_entry[BOOT_AREA_BB1ST].size:00044000
+cal_copy:00000001
+align_size:00001000
+1STBLOB	00000200	00044000
+BL2E	00044200	0001d000
+BL2X	00061200	0001b000
+DDRFIP	0007c200	00040000
+DEVFIP	000bc200	00380000
+derive RSPK OK
+read PFID OK
+TZRAM_BASE=f3c00000,BL2_ACS_OFFSET1=0000f004
+DDR_DRIVER_VERSION: AML_LP5_PHY_S6_V_0_33; Built : 11:14:20, Jun 17 2025. s6 projects/openlinux/yocto-4.0-s6 g271893a - bl.autobuild@walle02-sh
+
+find ddr phy revb
+ddr_efuse_info[0]=00000000 [1]=00000000
+
+frequency=00000320,vco=01042aaa
+
+frequency=00000320,vco=01042aaa
+
+ddr_efuse_info[0]=00000000 [1]=00000000
+Cfg max: 2, cur: 1. Board id: 255Force loop
+cold_boot reg[fe010384] = 00000000
+Set ddr clk to 687 MHz 5496 Mbps
+
+frequency=000002af,vco=01872800
+
+dram_type==LPDDR5
+config==r0_32bit_ch0
+
+dram_total_size_MB=30720
+
+
+
+
+ddr boot cost time 1684686 DDR : 8192MB @687MHz
+
+non-sec scramble use random key
+scramble key_1 always use random key
+ddr scramble enabled
+
+DDR ch: 0
+DDR cs0 size: 4096MB
+DDR cs1 size: 4096MB
+DDR size: 8192MB
+
+INFO: bl2_load_bl2ex start!
+
+open all dmc permission
+INFO: load ...
+Load: BL2E From: eMMC - 3.1 src: 00002000, dst: 00fffff0, size: 0001b000
+off:00046200
+sdemmc src: INFO: check ...
+SHA CHK OK!
+
+aml log : dump from buffer 01000000
+28 6c 4f 11 67 ea 8e 99 ae c9 33 36 a0 76 f9 be
+fd 10 2e 3f d0 99 83 45 cd d0 5b a2 04 66 53 ea
+
+INFO: load ...
+Load: BL2X From: eMMC - 3.1 src: 00000000, dst: 007ffff0, size: 0001b000
+off:00061200
+sdemmc src: INFO: check ...
+SHA CHK OK!
+
+aml log : dump from buffer 00800000
+ed 48 75 8e da aa e6 f5 5e da 50 41 36 82 50 e2
+f4 84 58 d9 68 75 90 4f c7 80 02 a9 43 5e 4c 54
+
+run into bl2e
+start:  BL2E stage from BL2 !
+info: get valid params from BL2 !
+bl2_gd_init
+BL2E: do things as vendor specific ...
+Hello world, now in BL2E
+
+TE: 2123594
+
+BL2E 1.0.0 Built : 08:25:50, Mar 21 2025. s6 projects/amlogic-dev g69a46e5 - bl.autobuild@walle02-sh
+
+
+Start to do bl2e platform setup!
+eMMC boot @ 1
+sw-hs2 s
+tun-w: s=2, sz=4
+sw8 s
+aml log : BL2E load BL3X.....
+
+TE: 2171032
+Load: FIP HDR From: eMMC - 3.1 src: 00000000, des: 00308000, size: 00002000
+off:000bc200
+Load: BL3X From: eMMC - 3.1 src: 00002000, des: 0030a000, size: 0027a480
+off:000be200
+aml log : BL2E loading BL3X is done...!
+boot bl2x
+params to bl2x, address=0x0100d440
+
+
+ Hello, we are in BL2X world !
+
+TE: 2241312
+
+BL2X 1.1.0 Built : 07:12:10, Feb 10 2025. s6 projects/amlogic-dev g64bb619 - bl.autobuild@walle02-sh
+
+bl2_platform_setup
+
+ampk: no key in acs
+INFO: get valid list_blobinfo, 0x0100d440
+
+Not loading secpu fw
+bl2e_2 entry: 010000c4
+run into bl31
+NOTICE:  BL31: start aocpu
+Starting AOCPU FreeRTOS
+AOCPU image version='2026-04-04 12:49:20'
+[cm_hash remote_name  branch      ]
+PMP config range f3c00000 ~ f3c0c400
+PMP config end
+[AOCPU]: mbox init
+[AOCPU]: mbox init end
+Starting task scheduler ...
+NOTICE:  BL31: v2.7.2(release):s7_s7d_s6_nsv_11262024-28-g89502cdb1 bl.autobuild@walle02-sh
+NOTICE:  BL31: Built : 16:47:55, Sep  5 2025
+[BL31] mbox init
+NOTICE:  BL31:tsensor calibration: tsensor1 = 86000165
+NOTICE:  BL31:tsensor calibration: tsensor2 = 86000168
+NOTICE:  DEVICE_MVN=0x0
+NOTICE:  ignore fixed_pll clock init
+NOTICE:  vmin:75 de 4 0!
+NOTICE:  vmin:75 de 4 0!
+NOTICE:  decomp BL32 is Success
+E/TC:0 00 INFO:    BL3-2: ATOS-V3.18.4-75cbf4df8-jenkins@walle02-sh (gcc version 13.3.1 20240614 (Arm GNU Toolchain 13.3.Rel1 (Build arm-13.24))) #1 Wed Apr  2 04:42:53 UTC 2025 aarch64
+E/TC:0 00 INFO:    BL3-2: Chip: S6 Rev: B (48:B - 0:5)
+E/TC:0 00 INFO:    BL3-2: Secure Timer Initialized.
+E/TC:0 00 ampk_init:143 ampk: read vendor_key failed, res = 0xffff000b
+NOTICE:  decomp BL33 is Success
+bl2e stage2 enable mmu
+invalid params for bl2e stage2, use predefined settings!
+boot bl33 ! TE:2486753
+
+<debug_uart>
+uboot start TE: 2488309 us
+
+
+U-Boot 2023.01 (Sep 07 2026 - 15:55:31 +0800)
+
+DRAM:  8 GiB
+board init
+gpio: pin GPIOH_6 (gpio 63) value is 1
+res_1080p: 0
+hdmitx enc_idx: 0
+tx_max_frl_rate: 0
+max_refreshrate: 120
+Error getting FEAT_DISABLE_HDMI_TX_3D: 101
+Error getting FEAT_DISABLE_HDMITX: 101
+gpio: pin GPIOH_7 (gpio 64) value is 1
+ACore:  189 devices, 24 uclasses, devicetree: embed
+WDT:   Not starting watchdog
+Invalid bus 0 (err=-19)
+board_spinand_init 46 probe spi nand fail!
+Invalid bus 0 (err=-19)
+spi flash probe fail!
+[meson_mmc_probe]sd: Controller probe success!
+[meson_mmc_probe]emmc: Controller probe success!
+sd: 0, emmc: 1
+emmc: resp timeout, cmd8, status=0xa1ff2800
+emmc: resp timeout, cmd55, status=0xa1ff2800
+store flag: 0, types: 1
+emmc init success!
+emmc: tuning start:
+emmc: best_win_start =2, best_win_size =5
+emmc probe success
+set has_boot_slot = 0
+get ept from gpt success
+eMMC/TSD partition table have been checked OK!
+crc32_s:0x1577dad == storage crc_pattern:0x1577dad!!!
+crc32_s:0xee152b83 == storage crc_pattern:0xee152b83!!!
+crc32_s:0x79f50f07 == storage crc_pattern:0x79f50f07!!!
+Loading Environment from STORAGE... OK
+time profile start TE: 2633684 us
+In:    serial@a000
+Out:   serial@a000
+Err:   serial@a000
+board common misc_init
+board late init
+init front
+boot in AVB mode
+boot_info_open_partition Start read misc partition datas
+active slot = 0
+set vendor_boot_mode false
+the dtb partition size is:40000   byte
+_verify_dtb_checksum()-2943: calc ecccef19, store ecccef19
+_verify_dtb_checksum()-2943: calc ecccef19, store ecccef19
+dtb_read()-3158: total valid 2
+update_old_dtb()-3139: do nothing
+      Amlogic Multi-DTB tool
+      GZIP format, decompress...
+      Single DTB detected
+Working FDT set to 1000000
+M]Msg:normal key used!
+the key partition size is:40000   byte
+calc 0, store 0
+cpy 1 is not valid
+calc 0, store 0
+cpy 0 is not valid
+M]Msg:mark is not found
+stick_reboot_flag = 0x0
+vpu: find AML_VPU_CLK_LEVEL_DFT: 7
+vpu: clk_level in dts: 7
+vpu: vpu_power_on_new
+vpu: set clk: 666667000Hz, readback: 666666667Hz(0x100)
+vpu: vpu_module_init_config
+vpu: vpu_probe
+lcd: error: can't find node: /lcd_resman
+lcd: [0]: drv_ver: 20241127(15-s6), lcd_mode: tablet, key_valid: 0, clk_path: 0, cfg_chk_glb: 0
+lcd: load dts config: ATK-MD0550M_10801920, lcd_type: mipi(3)
+lcd: [0]: load dts config: ATK-MD0550M_10801920, mipi, 24bit, 1080x1920, ppc:1, clk_mode:0, cfg_chootmode is cold_boot
+forUpgrade_socType=48
+forUpgrade_secureBoot=false
+forUpgrade_robustOta=true
+forUpgrade_flashType=BOOT_EMMC
+forUpgrade_bootloaderCopies=3
+forUpgrade_bootloaderIndex=1
+forUpgrade_1stBootIndex=0
+production_mode=0
+MSG[ENV]_update_env_list: forUpgrade_robustOta forUpgrade_bootloaderIndex
+forUpgrade_robustOta=true
+forUpgrade_bootloaderIndex=1
+MSG[ENV]all env NOT need update
+_find_partition_by_name()-208: do not find match in table recoverybak
+_find_partition_by_name()-208: do not find match in table recoverybak
+can not find recoverybak, skip
+rebootstatus is reboot_init, skip check
+device is not ab mode
+update_tries - update_tries
+
+Usage:
+update_tries 
+This command will change tries_remaining in misc
+So you can execute command: update_tries
+outputmode=1080x1920p60hz
+connector0_type=MIPI-A
+connector1_type=HDMI-A-A
+MSG[ENV]_update_env_list: outputmode connector0_type connector1_type
+outputmode=1080x1920p60hz
+connector0_type=MIPI-A
+connector1_type=HDMI-A-A
+MSG[ENV]all env NOT need update
+buff: 801dc005812630
+Net:   pwr up eth
+ex-phy
+mc_val=0x1621
+cali_val=0x80000
+set rgmii
+soc num 5
+eth0: ethernet@fe368000
+boot_info_open_partition Start read misc partition datas
+active slot = 0
+set vendor_boot_mode false
+recovery_status=
+upgrade_step=0
+do_hpd_detect, hpd_state=0
+do_hpd_detect: outputmode=1080x1920p60hz, outputmode2=2160p60hz, connector0_type=MIPI-A, connector1_type=HDMI-A-A
+vout2_hdmi_hpd: hdmimode=none
+vout2_hdmi_hpd: colorattribute=420,8bit
+HDMI HPD low, no need parse EDID
+Unknown command 'dovi' - try 'help'
+osd: hpd_state=0
+[VOUT]vout[0] parse: W=1080, H=1920, FR=60Hz
+vout_vmode_init cur_enc_ppc = 1
+[OSD]Found fb_addr from reserved memory: 0x7f800000
+[OSD]set initrd_high: 0x7f800000
+[OSD]fb_addr for logo: 0x7f800000
+[OSD]Found fb_addr from reserved memory: 0x7f800000
+[OSD]fb_addr for logo: 0x7f800000
+[OSD]VPP_OFIFO_SIZE:0xfff01000
+_get_part_index_by_name()-183: do not find match in table odm_ext
+ext4logoLoadCmd=ext4load mmc 1:${logoPart} ${logoLoadAddr} ${ext4LogoPath}
+Can't set block device
+Err imgread(L1647):Fail in load logo cmd
+[OSD]osd0_update_disp_freescale_enable
+lcd: [0]: lcd_tablet_connector_check: connector[0] to lcd(MIPI-A), suggested timing: 1080x1920p60hz
+vpp: g12a/b post2(bit12) matrix: YUV limit -> RGB ..............
+lcd: [0]: lcd_tablet_connector_check: connector[0] to lcd(MIPI-A), suggested timing: 1080x1920p60hz
+lcd: [0]: DSI_PLL: pll_out:1600410240Hz: xd[1]*frac[12]->fout=133367520hz, div[1]->phy=800205120hz
+lcd: [0]: enable: ATK-MD0550M_10801920, mipi, 1080x1920@60.00Hz, mipi mode, ver 20241127
+lcd: lcd_pll_wait_lock: [0]: pll_lock=1, wait_loop=1
+lcd: [0]: show test pattern: 8-Black
+vpp: vpp_init_lcd_gamma_table
+lcd: [0]: lcd_power_ctrl: 1
+lcd: [0]: Waiting STOP STATE LANE
+lcd: [0]: dsi_panel_init table
+lcd: [0]: dsi_panel_init extern [255] invalid
+lcd: [0]: lcd_mute_set: 0
+s_version: 01.01.260907.155531
+M]Err:L403:key[usid] not programed yet
+M]Err:L403:key[region_code] not programed yet
+M]Err:L403:key[mac] not programed yet
+M]Err:L403:key[deviceid] not programed yet
+[FACTORY-PROVISION] Being 'EMMC' storage medium
+Interface:  mmc
+  Device 1: Vendor: Man 000045 Snr <redacted> Rev: 0.1 Prod: DG4016
+            Type: Removable Hard Disk
+            Capacity: 15028.0 MB = 14.6 GB (30777344 x 512)
+Filesystem: FAT12 "KEYBOX PART"
+## Error: "upgrade_key" not defined
+Command: bcb uboot-command 
+Start read misc partition datas!
+MSG[ENV]_update_env_list: retry_recovery_times
+retry_recovery_times=7
+MSG[ENV]all env NOT need update
+BCB hasn't any datas,exit!
+starting USB...
+Bus crg30@fe350000: No ----gpio-vbus-power
+Register 2000120 NbrPorts 2
+Starting the controller
+USB XHCI 1.10
+Bus crg20@fe340000: No ----gpio-vbus-power
+Register 1000120 NbrPorts 1
+Starting the controller
+USB XHCI 1.10
+scanning bus crg30@fe350000 for devices... 2 USB Device(s) found
+scanning bus crg20@fe340000 for devices... 1 USB Device(s) found
+       scanning usb for storage devices... 1 Storage Device(s) found
+Hit any key to stop autoboot:  3  2  1  0 
+Using ethernet@fe368000 device
+TFTP from server <host-ip>; our IP address is <board-ip>
+Filename 's6-nuttx.bin'.
+Load address: 0x3000000
+Loading: *
+ARP Retry count exceeded; starting again
+3563520 bytes read in 228 ms (14.9 MiB/s)
+Working FDT set to 1000000
+no memtag node in dtb
+Moving Image from 0x3000000 to 0x3080000, end=33e7000
+## Flattened Device Tree blob at 01000000
+   Booting using the fdt blob at 0x1000000
+Working FDT set to 1000000
+_find_partition_by_name()-208: do not find match in table dtbo
+_find_partition_by_name()-208: do not find match in table dtbo
+error partition name!
+DTBO partition header is incorrect
+No valid dtbo image found
+Working FDT set to 1000000
+no memtag node in dtb
+   Loading Device Tree to 000000001ffe2000, end 000000001ffff38a ... OK
+Working FDT set to 1ffe2000
+NOTICE:  vmin:75 de 4 0!
+[cmd_pdvfs] update_pdvfs dtb
+NOTICE:  vmin:75 de 4 0!
+Enable kaslr
+DMC0 SEC VIOLATION CHECK PASS.
+
+Starting kernel ...
+
+uboot time: 27821254 us
+boot 64bit kernel
+- Ready to Boot Primary CPU
+- Boot from EL2
+- Boot from EL1
+- Boot to C runtime for OS Initialize
+- Ready to -B oRoeta dSye ctoo-n  dBR oeCoaPtdU yS 
+etcoo n-Bd o Bot SPoU
+ cof-nd oPmBoEoLt2
+
+ - Boot ftrom EL1 
+of- Brotomo C EL
+n- Be oft  fr-m  EBnot
+ ali m Eoott- Booun ti C  orntimeInit al init
+alize
+[CPU0] s6_eth: DWMAC 00005053, PHY 001c:c916, MAC <board-mac>
+launcher [7:100]
+telnetd [8:100]
+[CPU1]
+N ut[tSLheVllG (LNS]H) [User]	(27.863, +27863)	 check_stack_size: tid: 7, Stack size : 32656 lv_nuttx_entry.c:283
+[CPU1] [LVGL] [User]	(27.864, +1)	 lv_nuttx_fbdev_set_file: The framebuffer device was opened successfully lv_nuttx_fbdev.c:104
+[CPU1] [LVGL] [User]	(27.866, +2)	 lv_nuttx_fbdev_set_file: VideoInfo: lv_nuttx_fbdev.c:112
+[CPU1] [LVGL] [User]	(27.867, +1)	 lv_nuttx_fbdev_set_file:       fmt: 11 lv_nuttx_fbdev.c:113
+[CPU1] [LVGL] [User]	(27.868, +1)	 lv_nuttx_fbdev_set_file:      xres: 1080 lv_nuttx_fbdev.c:114
+[CPU1] [LVGL] [User]	(27.869, +1)	 lv_nuttx_fbdev_set_file:      yres: 1920 lv_nuttx_fbdev.c:115
+[CPU1] [LVGL] [User]	(27.870, +1)	 lv_nuttx_fbdev_set_file:   nplanes: 1 lv_nuttx_fbdev.c:116
+[CPU1] [LVGL] [User]	(27.871, +1)	 fbdev_get_pinfo: PlaneInfo (plane 0): lv_nuttx_fbdev.c:278
+[CPU1] [LVGL] [User]	(27.872, +1)	 fbdev_get_pinfo:     mem: 0x33ea300 lv_nuttx_fbdev.c:279
+[CPU1] [LVGL] [User]	(27.873, +1)	 fbdev_get_pinfo:     fblen: 4177920 lv_nuttx_fbdev.c:280
+[CPU1] [LVGL] [User]	(27.874, +1)	 fbdev_get_pinfo:    stride: 2176 lv_nuttx_fbdev.c:281
+[CPU1] [LVGL] [User]	(27.875, +1)	 fbdev_get_pinfo:   display: 0 lv_nuttx_fbdev.c:282
+[CPU1] [LVGL] [User]	(27.876, +1)	 fbdev_get_pinfo:       bpp: 16 lv_nuttx_fbdev.c:283
+[CPU1] [LVGL] [User]	(27.877, +1)	 lv_nuttx_fbdev_set_file: Resolution is set to 1080x1920 at 130dpi lv_nuttx_fbdev.c:162
+[CPU1] [LVGL] [User]	(27.878, +1)	 lv_nuttx_touchscreen_create: touchscreen /dev/input0 opening lv_nuttx_touchscreen.c:79
+
+nsh> [CPU0] [LVGL] [User]	(28.065, +187)	 lv_nuttx_touchscreen_create: touchscreen /dev/input0 open success, maxpoint 5 lv_nuttx_touchscreen.c:98
+[CPU0] eth0: link up, 100 Mbps full duplex
