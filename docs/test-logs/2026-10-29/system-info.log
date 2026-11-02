@@ -1,0 +1,20 @@
+
+NuttShell (NSH)
+nsh> uname -a
+NuttX  0.0.0 5a359897 Oct 23 2026 21:34:45 arm64 vsai-logicpi-a1
+nsh> uptime
+00:48:38 up  0:48, load average: 0.77, 0.77, 0.77
+nsh> free
+      total       used       free    maxused    maxfree  nused  nfree name
+   29462528    8449632   21012896   12714512   20960528     81      5 Umem
+nsh> ps
+  PID GROUP CPU(AFFINITY)   PRI POLICY   TYPE    NPX STATE    EVENT     SIGMASK            STACK    USED FILLED    CPU COMMAND
+    0     0 000(0x0000000f)   0 FIFO     Kthread   - Running            0000000000000000 0008112 0001072  13.2%  23.0% CPU0 IDLE
+    1     0 001(0x0000000f)   0 FIFO     Kthread   - Assigned           0000000000000000 0008112 0000960  11.8%  24.9% CPU1 IDLE
+    2     0 002(0x0000000f)   0 FIFO     Kthread   - Running            0000000000000000 0008112 0000848  10.4%  24.9% CPU2 IDLE
+    3     0 003(0x0000000f)   0 FIFO     Kthread   - Running            0000000000000000 0008112 0000848  10.4%  25.1% CPU3 IDLE
+    4     0 ---(0x0000000f) 100 FIFO     Kthread   - Waiting  Semaphore 0000000000000000 0008048 0001600  19.8%   0.0% lpwork 0x33056c0 0x3305748
+    6     6 ---(0x0000000f) 100 FIFO     Task      - Waiting  Semaphore 0000000000000000 0008080 0002912  36.0%   0.0% nsh_main
+    7     7 ---(0x0000000f) 100 FIFO     Task      - Waiting  Signal    0000000000000000 0032656 0007136  21.8%   1.8% launcher
+    8     8 ---(0x0000000f) 100 FIFO     Task      - Waiting  Semaphore 0000000000000000 0008080 0001712  21.1%   0.0% telnetd
+  110   110 001(0x0000000f) 100 FIFO     Task      - Running            0000000000000000 0008080 0004064  50.2%   0.0% Telnet_session

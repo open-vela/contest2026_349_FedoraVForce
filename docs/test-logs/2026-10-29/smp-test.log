@@ -1,0 +1,132 @@
+
+NuttShell (NSH)
+nsh> smp
+  Main[0]: Running on CPU1
+  Main[0]: Initializing barrier
+  Main[0]: Thread 1 created
+Thread[1]: Started
+  Main[0]: Now running on CPU0
+Thread[1]: Running on CPU1
+  Main[0]: Thread 2 created
+Thread[2]: Started
+  Main[0]: Now running on CPU2
+Thread[2]: Running on CPU2
+  Main[0]: Thread 3 created
+Thread[3]: Started
+  Main[0]: Now running on CPU3
+Thread[3]: Running on CPU3
+  Main[0]: Thread 4 created
+Thread[4]: Started
+  Main[0]: Now running on CPU0
+Thread[4]: Running on CPU0
+  Main[0]: Thread 5 created
+Thread[5]: Started
+  Main[0]: Now running on CPU3
+Thread[5]: Running on CPU2
+  Main[0]: Thread 6 created
+Thread[6]: Started
+Thread[1]: Now running on CPU2
+  Main[0]: Now running on CPU0
+Thread[5]: Now running on CPU1
+Thread[6]: Running on CPU1
+  Main[0]: Thread 7 created
+Thread[7]: Started
+Thread[1]: Now running on CPU1
+Thread[2]: Now running on CPU1
+  Main[0]: Thread 8 created
+Thread[8]: Started
+Thread[6]: Now running on CPU2
+Thread[7]: Running on CPU2
+Thread[5]: Now running on CPU2
+Thread[1]: Now running on CPU2
+  Main[0]: Now running on CPU2
+Thread[8]: Running on CPU2
+Thread[3]: Calling pthread_barrier_wait()
+Thread[4]: Calling pthread_barrier_wait()
+Thread[7]: Now running on CPU3
+Thread[5]: Now running on CPU0
+Thread[2]: Calling pthread_barrier_wait()
+Thread[1]: Now running on CPU3
+Thread[8]: Now running on CPU0
+Thread[3]: Now running on CPU0
+Thread[5]: Now running on CPU1
+Thread[2]: Now running on CPU2
+Thread[1]: Now running on CPU0
+Thread[8]: Now running on CPU1
+Thread[5]: Now running on CPU0
+Thread[8]: Now running on CPU3
+Thread[1]: Now running on CPU3
+Thread[1]: Calling pthread_barrier_wait()
+Thread[8]: Now running on CPU1
+Thread[1]: Now running on CPU0
+Thread[6]: Calling pthread_barrier_wait()
+Thread[5]: Calling pthread_barrier_wait()
+Thread[5]: Now running on CPU2
+Thread[7]: Calling pthread_barrier_wait()
+Thread[8]: Calling pthread_barrier_wait()
+Thread[8]: Now running on CPU2
+Thread[4]: Back with ret=0 (I am not special)
+Thread[8]: Back with ret=PTHREAD_BARRIER_SERIAL_THREAD (I AM SPECIAL)
+Thread[3]: Back with ret=0 (I am not special)
+Thread[2]: Back with ret=0 (I am not special)
+Thread[1]: Back with ret=0 (I am not special)
+Thread[6]: Back with ret=0 (I am not special)
+Thread[5]: Back with ret=0 (I am not special)
+Thread[7]: Back with ret=0 (I am not special)
+Thread[4]: Now running on CPU1
+Thread[8]: Now running on CPU0
+Thread[2]: Now running on CPU1
+Thread[1]: Now running on CPU1
+Thread[6]: Now running on CPU1
+Thread[5]: Now running on CPU1
+Thread[7]: Now running on CPU1
+Thread[4]: Now running on CPU2
+Thread[8]: Now running on CPU3
+Thread[1]: Now running on CPU3
+Thread[6]: Now running on CPU3
+Thread[5]: Now running on CPU3
+Thread[7]: Now running on CPU3
+Thread[8]: Now running on CPU0
+Thread[3]: Now running on CPU2
+Thread[1]: Now running on CPU0
+Thread[6]: Now running on CPU0
+Thread[7]: Now running on CPU1
+Thread[4]: Now running on CPU0
+Thread[5]: Now running on CPU2
+Thread[2]: Now running on CPU3
+Thread[1]: Now running on CPU3
+Thread[6]: Now running on CPU3
+Thread[7]: Now running on CPU3
+Thread[2]: Done
+Thread[4]: Now running on CPU1
+Thread[5]: Now running on CPU3
+Thread[3]: Done
+Thread[6]: Now running on CPU1
+Thread[7]: Now running on CPU2
+Thread[2]: Now running on CPU2
+Thread[5]: Now running on CPU2
+Thread[4]: Done
+Thread[3]: Now running on CPU0
+Thread[8]: Done
+Thread[6]: Now running on CPU2
+Thread[7]: Now running on CPU1
+Thread[8]: Now running on CPU1
+Thread[5]: Now running on CPU0
+Thread[1]: Done
+  Main[0]: Now running on CPU3
+  Main[0]: Thread 1 completed with result=0
+  Main[0]: Thread 2 completed with result=0
+  Main[0]: Thread 3 completed with result=0
+  Main[0]: Thread 4 completed with result=0
+Thread[5]: Done
+Thread[5]: Now running on CPU3
+  Main[0]: Thread 5 completed with result=0
+Thread[6]: Done
+Thread[6]: Now running on CPU3
+Thread[7]: Done
+  Main[0]: Now running on CPU2
+  Main[0]: Thread 6 completed with result=0
+Thread[7]: Now running on CPU0
+  Main[0]: Now running on CPU1
+  Main[0]: Thread 7 completed with result=0
+  Main[0]: Thread 8 completed with result=0

@@ -1,0 +1,19 @@
+
+NuttShell (NSH)
+nsh> iperf -s -p 5002 -i 2
+     IP: <board-ip>
+
+ mode=tcp-server sip=<board-ip>:5002,dip=0.0.0.0:5001, interval=2, time=0
+accept: <host-ip>:46184
+
+           Interval         Transfer         Bandwidth
+
+   0.00-   2.01 sec   23385217 Bytes   93.22 Mbits/sec
+   2.01-   4.01 sec   23734890 Bytes   94.70 Mbits/sec
+   4.01-   6.02 sec   23733595 Bytes   94.74 Mbits/sec
+   6.02-   8.02 sec   23783235 Bytes   94.90 Mbits/sec
+   8.02-  10.03 sec   23792160 Bytes   94.93 Mbits/sec
+closed by the peer: <host-ip>:46184
+  10.03-  12.03 sec   23628375 Bytes   94.32 Mbits/sec
+   0.00-  12.03 sec  142057472 Bytes   94.47 Mbits/sec
+iperf exit
